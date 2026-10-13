@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Киноколесо Dick Riders</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="wheel-zone" aria-label="Киноколесо Dick Riders">
+        <header class="brand-strip">
+          <div class="mark" aria-hidden="true">DR</div>
+          <div class="brand-copy">
+            <p class="eyebrow">Киноклуб</p>
+            <h1>Dick Riders</h1>
+          </div>
+          <div class="mode-badge" id="modeBadge">Обычный режим</div>
+        </header>
+
+        <div class="wheel-wrap">
+          <div class="pointer" aria-hidden="true"></div>
+          <canvas id="wheel" width="920" height="920" aria-label="Колесо с вариантами фильмов"></canvas>
+          <button id="spinButton" class="spin-button" type="button">
+            <span>Крутить</span>
+          </button>
+        </div>
+
+        <div class="result-panel" aria-live="polite">
+          <p class="label" id="resultLabel">Выбор на вечер</p>
+          <h2 id="winnerTitle">Заряжайте колесо, и пусть решает судьба.</h2>
+          <p id="winnerMeta">Добавьте хотя бы два фильма, потом крутите.</p>
+        </div>
+      </section>
+
+      <aside class="control-zone" aria-label="Управление фильмами">
+        <form id="movieForm" class="movie-form">
+          <div class="field-group">
+            <label for="movieTitle">Название фильма</label>
+            <input id="movieTitle" name="movieTitle" type="text" placeholder="Славные парни" autocomplete="off" required />
+          </div>
+
+          <div class="form-grid">
+            <div class="field-group">
+              <label for="movieGenre">Жанр</label>
+              <input id="movieGenre" name="movieGenre" type="text" placeholder="Криминальная комедия" autocomplete="off" />
+            </div>
+            <div class="field-group">
+              <label for="movieOwner">Кто добавил</label>
+              <input id="movieOwner" name="movieOwner" type="text" placeholder="Макс" autocomplete="off" />
+            </div>
+          </div>
+
+          <button class="primary-action" type="submit">Добавить фильм</button>
+        </form>
+
+        <section class="import-block" aria-label="Импорт списка фильмов">
+          <div class="section-head">
+            <h2>Импорт</h2>
+            <span id="importSummary">.docx или .txt</span>
+          </div>
+          <label class="drop-zone" id="importDropZone" for="importFileInput">
+            <input id="importFileInput" type="file" accept=".docx,.txt,.text" />
+            <span>Закиньте сюда Word-документ со списком фильмов</span>
+            <small>Один фильм на строку. Можно: Название | Жанр | Кто добавил</small>
+          </label>
+        </section>
+
+        <section class="settings-block" aria-label="Настройки колеса">
+          <div class="section-head">
+            <h2>Режим</h2>
+            <span id="modeHint">Один спин выбирает фильм</span>
+          </div>
+          <div class="segmented-control" role="radiogroup" aria-label="Режим выбора">
+            <label>
+              <input type="radio" name="wheelMode" value="classic" checked />
+              <span>Обычный</span>
+            </label>
+            <label>
+              <input type="radio" name="wheelMode" value="battle" />
+              <span>На выбывание</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="settings-block" aria-label="Настройки вращения">
+          <div class="section-head">
+            <h2>Вращение</h2>
+            <output id="spinDurationValue" for="spinDuration">5 сек</output>
+          </div>
+          <label class="range-control" for="spinDuration">
+            <span>Длительность</span>
+            <input id="spinDuration" type="range" min="2" max="60" step="1" value="5" />
+          </label>
+          <div class="range-scale" aria-hidden="true">
+            <span>2 сек</span>
+            <span>60 сек</span>
+          </div>
+        </section>
+
+        <section class="battle-panel" id="battlePanel" aria-label="Статус режима на выбывание">
+          <div class="section-head">
+            <h2>Королевская битва</h2>
+            <button id="resetBattleButton" class="ghost-button" type="button">Сбросить раунд</button>
+          </div>
+          <div class="battle-stats">
+            <div>
+              <span id="survivorCount">0</span>
+              <p>осталось</p>
+            </div>
+            <div>
+              <span id="eliminatedCount">0</span>
+              <p>вылетело</p>
+            </div>
+          </div>
+          <ol id="eliminatedList" class="compact-list"></ol>
+        </section>
+
+        <div class="toolbar" aria-label="Действия с колесом">
+          <button id="shuffleButton" type="button">Перемешать</button>
+          <button id="clearButton" type="button">Очистить</button>
+        </div>
+
+        <section class="list-section">
+          <div class="section-head">
+            <h2>Список</h2>
+            <span id="movieCount">0 фильмов</span>
+          </div>
+          <ul id="movieList" class="movie-list"></ul>
+        </section>
+
+        <section class="list-section history-section">
+          <div class="section-head">
+            <h2>История</h2>
+            <button id="clearHistoryButton" class="ghost-button" type="button">Сбросить</button>
+          </div>
+          <ol id="historyList" class="compact-list"></ol>
+        </section>
+      </aside>
+    </main>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
