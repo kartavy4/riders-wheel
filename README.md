@@ -1,4 +1,4 @@
-# Dick Riders Movie Wheel
+# Riders Movie Wheel
 
 Колесо выбора фильма для команды Dick Riders. Интерфейс на русском.
 
